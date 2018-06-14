@@ -1,4 +1,4 @@
-DEFAULT_USER=" Nic"
+DEFAULT_USER=" Jimmy"
 
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
@@ -88,16 +88,35 @@ rserver_restart() {
   esac
 }
 
-# 常用 alias
+
+
+# [rails]
 alias rs='rails s'
-alias n='cd ~/Dropbox/projects/business/growthschool/otcbtc'
-alias ll='ls -l'
 alias rc='rails c'
 alias bi='bundle install'
-alias gs='git status'
-alias rcop='git status --porcelain | cut -c4- | grep '.rb' | xargs rubocop'
 alias rlog='tail -f log/development.log'
+
+
+# [git]
+alias gs='git status'
+alias gre='git remote -v'
 alias gotowork='tmuxifier load-window example'
+
+# [tmux]
+alias ts= 'tmux ls'
+alias tt='tmux attach -t'
+
+# 常用 alias
+alias ll='ls -l'
+alias z='vim ~/.zshrc'
+alias nrd='npm run dev'
+alias ff='cd ~/Project2018/forfun/'
+alias fj='cd ~/Project2018/forjob/'
+alias rmf='rm -rf'
+alias docker on='docker-compose up -d'
+alias docker off='docker-compose stop'
+alias fv='defaults write com.apple.finder AppleShowAllFiles TRUE;\killall Finder'
+alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finder'
 
 export NVM_DIR="/Users/Nic/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
