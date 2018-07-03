@@ -8,11 +8,11 @@ filetype off                 " required!
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  let iCanHazVundle=0
+echo "Installing Vundle.."
+echo ""
+silent !mkdir -p ~/.vim/bundle
+silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+let iCanHazVundle=0
 endif
 
 " configure Vundle
@@ -59,8 +59,12 @@ set tabstop=8                                                " actual tabs occup
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu                                                 " show a navigable menu for tab completion
 set wildmode=longest,list,full
-set regexpengine=1
 colors solarized_dark                                        " vim color scheme
+
+" Performance
+set ttyfast
+set lazyredraw
+set regexpengine=1
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -86,6 +90,12 @@ nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+" 連續縮排
+nnoremap < <<
+nnoremap > >>
+vnoremap < <gv
+vnoremap > >gv
+
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
 
@@ -93,12 +103,22 @@ cnoremap w!! %!sudo tee > /dev/null %
 let g:ctrlp_match_window = 'order:ttb,max:20'
 let g:NERDSpaceDelims=1
 let g:gitgutter_enabled = 0
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+
+" Syntastic ------------------------------
+let g:syntastic_vue_tidy_ignore_errors=[" proprietary attribute \"el-"]
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map={'passive_filetypes':['html']}
+" 设置错误符号
+let g:syntastic_error_symbol='✗'
+" 设置警告符号
+let g:syntastic_warning_symbol='⚠'
+" 是否在打开文件时检查
+let g:syntastic_check_on_open=0
+" 是否在保存文件后检查
+let g:syntastic_check_on_wq=1
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -127,8 +147,18 @@ autocmd User Rails silent! Rnavcommand feature        features                  
 autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
 autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
 autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
+
+" ------------------------------------------------------------
+"  vim-vue
+" ------------------------------------------------------------
+autocmd BufRead,BufNewFile *.vue setlocal filetype=html syntax=javascript
+
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
+
+" Enable just for html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " Fix Cursor in TMUX
 if exists('$TMUX')
@@ -158,10 +188,6 @@ endif
 
 map <C-n> :NERDTreeToggle<CR>
 
-
-
-set nocursorline " don't highlight current line
-
 " keyboard shortcuts
 inoremap jj <ESC>
 
@@ -189,7 +215,7 @@ if has('vim_starting')
       function! s:rails_test_helpers_for_pair() "{{{
         let type = rails#buffer().type_name()
         let relative = rails#buffer().relative()
-        if type =~ '^test' || (type == 'javascript-coffee' && relative =~ '^test/')
+        if type =~ '^spec'
           nmap \t [rtest]
           nnoremap <silent> [rtest]l :call <SID>rails_test_tmux('h')<CR>
           nnoremap <silent> [rtest]w :call <SID>rails_test_tmux('new-window')<CR>
@@ -209,69 +235,39 @@ function! s:rails_test_tmux(method) "{{{
   let rails_type = rails#buffer().type_name()
   let rails_relative = rails#buffer().relative()
 
-  if rails_type =~ '^test'
+  if rails_type =~ '^spec'
     let it = matchstr(
           \   getline(
           \     search('^\s*it\s\+\(\)', 'bcnW')
           \   ),
           \   'it\s*[''"]\zs.*\ze[''"]'
           \ )
-    let path = rails_relative
-  elseif rails_type == 'javascript-coffee' && rails_relative =~ '^test/'
-    " Currently, teaspoon can't filter specs without 'describe' title
-    " https://github.com/modeset/teaspoon/issues/304
-    let desc = matchstr(
-          \   getline(
-          \     search('^\s*describe\s*\(\)', 'bcnW')
-          \   ),
-          \   'describe\s*[''"]\zs.*\ze[''"]'
-          \ )
-    let it = matchstr(
-          \   getline(
-          \     search('^\s*it\s\+\(\)', 'bcnW')
-          \   ),
-          \   'it\s*[''"]\zs.*\ze[''"]'
-          \ )
-    let it = (empty(desc) || empty(it)) ?
-          \ '' :
-          \ join([desc, it], ' ')
     let path = rails_relative
   end
 
-  if empty(it) || empty(path)
+  if empty(path)
     let it   = get(s:, 'rails_test_tmux_last_it', '')
     let path = get(s:, 'rails_test_tmux_last_path', '')
-  end
-
-  if empty(it) || empty(path)
-    echohl WarningMsg | echomsg 'No `it` block found' | echohl None
-    return
   end
 
   let s:rails_test_tmux_last_it = it
   let s:rails_test_tmux_last_path = path
 
-  if rails_type == 'javascript-coffee'
-    " https://github.com/modeset/teaspoon/wiki/Teaspoon-Configuration
-    " TODO add back `--filter` if I can handle nested `describe` blocks
-    " let test_command = printf('RAILS_RELATIVE_URL_ROOT= teaspoon %s --fail-fast -f pride --filter %s', path, shellescape(it))
-    let test_command = printf('FAIL_FAST=true FORMATTERS=documentation rake teaspoon files=%s', path)
-    let title = '☕️'
-  elseif rails_type == 'test-integration'
-    " TODO why can't just use ruby -Itest?
-    let test_command = printf('RAILS_RELATIVE_URL_ROOT= bundle exec rake test:integration TEST=%s', path)
-    let title = matchstr(rails_type, '\vtest-\zs.{4}')
+  if empty(it)
+    let test_command = printf('bundle exec rspec %s', path)
   else
-    let test_command = printf('bundle exec ruby -Itest %s --name /%s/', path, shellescape(escape(it, '()')))
-    let type_short = matchstr(rails_type, '\vtest-\zs.{4}')
-    if type_short == 'unit'
-      let title = type_short
-    elseif type_short == 'func'
-      let title = type_short
-    else
-      let title = type_short
-    endif
+    let test_command = printf('bundle exec rspec %s -e %s', path, shellescape(escape(it, "()")))
   endif
+
+  let type_short = matchstr(rails_type, '\vtest-\zs.{4}')
+  if type_short == 'spec'
+    let title = type_short
+  elseif type_short == 'func'
+    let title = type_short
+  else
+    let title = type_short
+  endif
+
 
   call TmuxNewWindow({
         \   "text": test_command,
