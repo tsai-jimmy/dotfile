@@ -103,7 +103,7 @@ alias gre='git remote -v'
 alias gotowork='tmuxifier load-window example'
 
 # [tmux]
-alias ts= 'tmux ls'
+alias tt s='tmux ls'
 alias tt='tmux attach -t'
 
 # 常用 alias
