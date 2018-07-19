@@ -91,20 +91,19 @@ rserver_restart() {
 
 
 # [rails]
+alias jim='pwd'
 alias rs='rails s'
 alias rc='rails c'
 alias bi='bundle install'
 alias rlog='tail -f log/development.log'
 
-
-# [git]
-alias gs='git status'
 alias gre='git remote -v'
 alias gotowork='tmuxifier load-window example'
 
 # [tmux]
-alias ts= 'tmux ls'
+alias tts='tmux ls'
 alias tt='tmux attach -t'
+alias ttd='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
 # 常用 alias
 alias ll='ls -l'
@@ -112,6 +111,7 @@ alias z='vim ~/.zshrc'
 alias nrd='npm run dev'
 alias ff='cd ~/Project2018/forfun/'
 alias fj='cd ~/Project2018/forjob/'
+alias fjo='cd ~/Project2018/forjob/otcbtc'
 alias rmf='rm -rf'
 alias docker on='docker-compose up -d'
 alias docker off='docker-compose stop'
@@ -120,3 +120,6 @@ alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finde
 
 export NVM_DIR="/Users/Nic/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
