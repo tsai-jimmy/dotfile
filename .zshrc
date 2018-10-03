@@ -96,14 +96,17 @@ alias rs='rails s'
 alias rc='rails c'
 alias bi='bundle install'
 alias rlog='tail -f log/development.log'
+alias sshj='ssh apps@staging.otcbtc.com'
 
 alias gre='git remote -v'
+alias gs='git status'
 alias gotowork='tmuxifier load-window example'
 
 # [tmux]
 alias tts='tmux ls'
 alias tt='tmux attach -t'
-alias ttd='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
+alias ttk='tmux kill-session -t'
+alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
 # 常用 alias
 alias ll='ls -l'
