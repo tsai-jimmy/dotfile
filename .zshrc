@@ -3,6 +3,8 @@ DEFAULT_USER=" Jimmy"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=vim
+# RabbitMQ Config
+export PATH=$PATH:/usr/local/sbin
 
 ZSH_THEME="agnoster"
 
@@ -97,6 +99,8 @@ alias rc='rails c'
 alias bi='bundle install'
 alias rlog='tail -f log/development.log'
 alias sshj='ssh apps@staging.otcbtc.com'
+alias bsl='brew services list'
+alias bsr='brew services restart '
 
 alias gre='git remote -v'
 alias gs='git status'
@@ -104,7 +108,7 @@ alias gotowork='tmuxifier load-window example'
 
 # [tmux]
 alias tts='tmux ls'
-alias tt='tmux attach -t'
+alias tt='tmux attach -t '
 alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
