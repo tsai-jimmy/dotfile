@@ -90,7 +90,11 @@ rserver_restart() {
   esac
 }
 
-
+# Something new for me was using command utility to call the OS's default touch command when we are overriding it.
+touch () {
+  mkdir -p "$(dirname "$1")"
+  command touch "$1"
+}
 
 # [rails]
 alias jim='pwd'
@@ -98,7 +102,6 @@ alias rs='rails s'
 alias rc='rails c'
 alias bi='bundle install'
 alias rlog='tail -f log/development.log'
-alias sshj='ssh apps@staging.otcbtc.com'
 alias bsl='brew services list'
 alias bsr='brew services restart '
 
