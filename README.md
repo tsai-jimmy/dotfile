@@ -1,4 +1,4 @@
-# Nic's dotfile
+# Jimmy's dotfile
 
 Vim
 
