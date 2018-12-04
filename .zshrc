@@ -118,6 +118,7 @@ alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 
 # 常用 alias
 alias ll='ls -l'
 alias z='vim ~/.zshrc'
+alias zx='cat ~/.zshrc'
 alias nrd='npm run dev'
 alias ff='cd ~/Project2018/forfun/'
 alias fj='cd ~/Project2018/forjob/'
