@@ -96,6 +96,17 @@ touch () {
   command touch "$1"
 }
 
+export GITHUB_UPSTREAM='otcbtc'
+
+#function pr_for_sha {
+  #git log --merges --ancestry-path --oneline $1..master | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
+#}
+
+ pr_sha() {
+  current_branch = git branch | grep \* | cut -d ' ' -f2
+  git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
+}
+
 # [rails]
 alias jim='pwd'
 alias rs='rails s'
