@@ -134,15 +134,17 @@ alias nrd='npm run dev'
 alias ff='cd ~/Project2018/forfun/'
 alias fj='cd ~/Project2018/forjob/'
 alias fjo='cd ~/Project2018/forjob/otcbtc'
+alias fje='cd ~/Project2018/forjob/exchange-client'
 alias rmf='rm -rf'
 alias docker on='docker-compose up -d'
 alias docker off='docker-compose stop'
 alias fv='defaults write com.apple.finder AppleShowAllFiles TRUE;\killall Finder'
 alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finder'
 
-export NVM_DIR="/Users/Nic/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+source /usr/local/opt/nvm/nvm.sh
