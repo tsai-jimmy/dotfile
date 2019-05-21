@@ -102,11 +102,17 @@ export GITHUB_UPSTREAM='otcbtc'
   #git log --merges --ancestry-path --oneline $1..master | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
 #}
 
- pr_sha() {
+ pr_otc_sha() {
   current_branch = git branch | grep \* | cut -d ' ' -f2
   git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
 }
 
+export GITHUB_UPSTREAM_1='caibaoshuo'
+
+ pr_cai_sha() {
+  current_branch = git branch | grep \* | cut -d ' ' -f2
+  git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM_1/${PWD##*/}/pull/%
+}
 # [rails]
 alias jim='pwd'
 alias rs='rails s'
@@ -119,6 +125,7 @@ alias bsr='brew services restart '
 alias gre='git remote -v'
 alias gs='git status'
 alias gotowork='tmuxifier load-window example'
+alias rbb='rubocop -a'
 
 # [tmux]
 alias tts='tmux ls'
@@ -132,8 +139,10 @@ alias z='vim ~/.zshrc'
 alias zx='cat ~/.zshrc'
 alias nrd='npm run dev'
 alias ff='cd ~/Project2018/forfun/'
+alias ffd='cd ~/Project2018/forfun/dd3'
 alias fj='cd ~/Project2018/forjob/'
 alias fjo='cd ~/Project2018/forjob/otcbtc'
+alias fjc='cd ~/Project2018/forjob/caibaoshuo'
 alias fje='cd ~/Project2018/forjob/exchange-client'
 alias rmf='rm -rf'
 alias docker on='docker-compose up -d'
