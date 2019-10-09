@@ -118,17 +118,28 @@ alias jim='pwd'
 alias rs='rails s'
 alias rc='rails c'
 alias bi='bundle install'
+alias ram='rake annotate_models'
 alias rlog='tail -f log/development.log'
 alias bsl='brew services list'
 alias bsr='brew services restart '
+alias lsps='ps -elf | grep'
 
+# [git]
 alias gre='git remote -v'
 alias gs='git status'
+
 alias gotowork='tmuxifier load-window example'
 alias rbb='rubocop -a'
 
+
+# [eslint-alias] standard
+stn() {
+  standard | grep "$1" | snazzy
+}
+
+
 # [tmux]
-alias tts='tmux ls'
+alias ttl='tmux ls'
 alias tt='tmux attach -t '
 alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
