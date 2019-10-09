@@ -13,7 +13,7 @@ Tmux
 #### Step 1
 ```
 cd
-git clone git@github.com:niclin/dotfile.git
+git clone git@github.com:tsai-jimmy/dotfile.git
 cd dotfiles
 rake install
 ```

@@ -23,12 +23,12 @@ def run(cmd)
 end
 
 def welcome_message
-  puts GREEN + "░█▄─░█ ▀█▀ ░█▀▀█ ░█─── ▀█▀ ░█▄─░█ " + NONE
-  puts GREEN + "░█░█░█ ░█─ ░█─── ░█─── ░█─ ░█░█░█ " + NONE
-  puts GREEN + "░█──▀█ ▄█▄ ░█▄▄█ ░█▄▄█ ▄█▄ ░█──▀█" + NONE
+  puts GREEN + "▒█▀▀█ ▒█▀▄▀█ ▀█▀ ▒█▀▀▀ ▒█░░░ ▒█░░▒█" + NONE
+  puts GREEN + "▒█░▄▄ ▒█▒█▒█ ▒█░ ▒█▀▀▀ ▒█░░░ ▒█▄▄▄█" + NONE
+  puts GREEN + "▒█▄▄█ ▒█░░▒█ ▄█▄ ▒█░░░ ▒█▄▄█ ░░▒█░░" + NONE
   puts
   puts GREEN + "======================================================" + NONE
-  puts GREEN + "Welcome to Nic Lin's DotFiles Installation."            + NONE
+  puts GREEN + "Welcome to Gmi's DotFiles Installation."            + NONE
   puts GREEN + "======================================================" + NONE
   puts
 end
@@ -108,5 +108,5 @@ def move_zsh_themes
 end
 
 def success_msg
-  puts 'Nic dotfile intall done.'
+  puts 'Gmi dotfile intall done.'
 end
