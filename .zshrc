@@ -123,6 +123,7 @@ alias rlog='tail -f log/development.log'
 alias bsl='brew services list'
 alias bsr='brew services restart '
 alias lsps='ps -elf | grep'
+# history | awk '{a[$2]++}END{for(i in a){print a[i]" "i}}' | sort -rn | head
 
 # [git]
 alias gre='git remote -v'
