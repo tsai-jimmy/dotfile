@@ -3,6 +3,7 @@ DEFAULT_USER=" Jimmy"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=vim
+export LANG=en_US.UTF-8
 # RabbitMQ Config
 export PATH=$PATH:/usr/local/sbin
 
@@ -123,6 +124,7 @@ alias ram='rake annotate_models'
 alias rlog='tail -f log/development.log'
 alias bsl='brew services list'
 alias bsr='brew services restart '
+alias bss='brew services start --all' #開啟所有 brew 相關 services
 alias lsps='ps -elf | grep'
 # history | awk '{a[$2]++}END{for(i in a){print a[i]" "i}}' | sort -rn | head
 
@@ -147,17 +149,17 @@ alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
 # 常用 alias
-alias ll='ls -l'
+alias ll='ls -al'
 alias z='vim ~/.zshrc'
 alias zx='cat ~/.zshrc'
 alias nrd='npm run dev'
 alias blog='cd ~/Dropbox/jimmy_de_blog/hexo-blog'
-alias ff='cd ~/Project2018/forfun/'
-alias ffd='cd ~/Project2018/forfun/dd3'
-alias fj='cd ~/Project2018/forjob/'
 alias fjo='cd ~/Project2018/forjob/otcbtc'
 alias fjc='cd ~/Project2018/forjob/caibaoshuo'
 alias fje='cd ~/Project2018/forjob/exchange-client'
+alias ffd='cd ~/Project2018/forfun/dd3'
+alias ff='cd ~/Project2018/forfun/'
+alias fj='cd ~/Project2020/forjob/'
 alias rmf='rm -rf'
 alias docker on='docker-compose up -d'
 alias docker off='docker-compose stop'
@@ -166,8 +168,9 @@ alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finde
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+source /usr/local/opt/nvm/nvm.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-source /usr/local/opt/nvm/nvm.sh
