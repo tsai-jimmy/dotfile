@@ -6,6 +6,7 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 # RabbitMQ Config
 export PATH=$PATH:/usr/local/sbin
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'
 
 ZSH_THEME="agnoster"
 
@@ -114,6 +115,7 @@ export GITHUB_UPSTREAM_1='caibaoshuo'
   current_branch = git branch | grep \* | cut -d ' ' -f2
   git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM_1/${PWD##*/}/pull/%
 }
+
 # [rails]
 alias jim='pwd'
 alias rs='rails s'
@@ -131,6 +133,8 @@ alias lsps='ps -elf | grep'
 # [git]
 alias gre='git remote -v'
 alias gs='git status'
+alias gcm='git checkout master'
+alias gcs='git checkout staging'
 
 alias gotowork='tmuxifier load-window example'
 alias rbb='rubocop -a'
@@ -149,28 +153,45 @@ alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
 # 常用 alias
+alias findip='ifconfig | grep 192.168.3'
 alias ll='ls -al'
 alias z='vim ~/.zshrc'
+alias q='vim ~/.gitconfig'
+alias s='vim ~/.ssh/config'
 alias zx='cat ~/.zshrc'
 alias nrd='npm run dev'
+alias ng3000='ngrok http 3000'
+alias jami='zip -er /Users/jimmy/Desktop/jami.zip'  # 加密
 alias blog='cd ~/Dropbox/jimmy_de_blog/hexo-blog'
 alias fjo='cd ~/Project2018/forjob/otcbtc'
-alias fjc='cd ~/Project2018/forjob/caibaoshuo'
+alias pro='cd ~/Project2020/forjob/raichu'
 alias fje='cd ~/Project2018/forjob/exchange-client'
 alias ffd='cd ~/Project2018/forfun/dd3'
-alias ff='cd ~/Project2018/forfun/'
+alias ex='cd ~/Project2020/forjob/bitex/'
+alias ff='cd ~/Project2020/forfun/'
 alias fj='cd ~/Project2020/forjob/'
 alias rmf='rm -rf'
 alias docker on='docker-compose up -d'
 alias docker off='docker-compose stop'
 alias fv='defaults write com.apple.finder AppleShowAllFiles TRUE;\killall Finder'
 alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finder'
+alias arm='env /usr/bin/arch -arm64 /bin/bash --login'
+alias intel='env /usr/bin/arch -x86_64 /bin/zsh --login'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 source /usr/local/opt/nvm/nvm.sh
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH=/Users/Shared/DBngin/mysql/5.7.23/bin:$PATH
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+export PATH=~/.local/bin:$PATH
+export LDFLAGS="-L$(brew --prefix openssl)/lib"
+export CPPFLAGS="-I$(brew --prefix openssl)/include"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
+export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
+export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
+export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
+eval "$(frum init)"
