@@ -363,6 +363,22 @@ prompt_terraform() {
   prompt_segment magenta yellow "TF: $terraform_info"
 }
 
+# Ruby version
+prompt_ruby() {
+  grep 'rails' 'Gemfile' >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    local ruby_version=''
+    if which rvm-prompt &> /dev/null; then
+      ruby_version="$(rvm-prompt i v g)"
+    else
+      if which rbenv &> /dev/null; then
+        ruby_version="$(rbenv version | sed -e "s/ (set.*$//")"
+      fi
+    fi
+    prompt_segment "$AGNOSTER_RUBY_BG" "$AGNOSTER_RUBY_FG" "$ruby_version"
+  fi
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -372,6 +388,7 @@ build_prompt() {
   prompt_terraform
   prompt_context
   prompt_dir
+  prompt_ruby
   prompt_git
   prompt_bzr
   prompt_hg
