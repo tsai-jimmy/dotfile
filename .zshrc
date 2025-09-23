@@ -198,3 +198,40 @@ export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+# Agnoster theme configuration - maintain legacy colors
+export AGNOSTER_CONTEXT_BG=blue
+export AGNOSTER_CONTEXT_FG=7  # white
+
+export AGNOSTER_DIR_BG=7      # white
+export AGNOSTER_DIR_FG=black
+
+export AGNOSTER_GIT_CLEAN_BG=green
+export AGNOSTER_GIT_CLEAN_FG=black
+export AGNOSTER_GIT_DIRTY_BG=yellow
+export AGNOSTER_GIT_DIRTY_FG=black
+
+export AGNOSTER_BZR_CLEAN_BG=green
+export AGNOSTER_BZR_CLEAN_FG=black
+export AGNOSTER_BZR_DIRTY_BG=yellow
+export AGNOSTER_BZR_DIRTY_FG=black
+
+export AGNOSTER_HG_NEWFILE_BG=red
+export AGNOSTER_HG_NEWFILE_FG=white
+export AGNOSTER_HG_CHANGED_BG=yellow
+export AGNOSTER_HG_CHANGED_FG=black
+export AGNOSTER_HG_CLEAN_BG=green
+export AGNOSTER_HG_CLEAN_FG=black
+
+export AGNOSTER_VENV_BG=blue
+export AGNOSTER_VENV_FG=black
+
+export AGNOSTER_CONDA_BG=magenta
+export AGNOSTER_CONDA_FG=black
+
+export AGNOSTER_STATUS_BG=black
+export AGNOSTER_STATUS_FG=default
+export AGNOSTER_STATUS_RETVAL_FG=red
+export AGNOSTER_STATUS_ROOT_FG=yellow
+export AGNOSTER_STATUS_JOB_FG=cyan
+export AGNOSTER_STATUS_RETVAL_NUMERIC=false
