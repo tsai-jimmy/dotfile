@@ -105,14 +105,14 @@ export GITHUB_UPSTREAM='otcbtc'
 #}
 
  pr_otc_sha() {
-  current_branch = git branch | grep \* | cut -d ' ' -f2
+  current_branch=$(git branch | grep \* | cut -d ' ' -f2)
   git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
 }
 
 export GITHUB_UPSTREAM_1='caibaoshuo'
 
  pr_cai_sha() {
-  current_branch = git branch | grep \* | cut -d ' ' -f2
+  current_branch=$(git branch | grep \* | cut -d ' ' -f2)
   git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM_1/${PWD##*/}/pull/%
 }
 
@@ -171,12 +171,14 @@ alias ex='cd ~/Project2020/forjob/bitex/'
 alias ff='cd ~/Project2020/forfun/'
 alias fj='cd ~/Project2020/forjob/'
 alias rmf='rm -rf'
-alias docker on='docker-compose up -d'
-alias docker off='docker-compose stop'
+alias dockeron='docker-compose up -d'
+alias dockeroff='docker-compose stop'
 alias fv='defaults write com.apple.finder AppleShowAllFiles TRUE;\killall Finder'
 alias fh='defaults write com.apple.finder AppleShowAllFiles FALSE;\killall Finder'
 alias arm='env /usr/bin/arch -arm64 /bin/bash --login'
 alias intel='env /usr/bin/arch -x86_64 /bin/zsh --login'
+alias codex-openai='codex --config model_provider=openai --config model=gpt-5'
+alias codex-oss='codex --config model_provider=oss --config codellama'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -192,6 +194,7 @@ export CPPFLAGS="-I$(brew --prefix openssl)/include"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
 export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
-export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
-export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
-eval "$(frum init)"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
