@@ -121,7 +121,7 @@ alias jim='pwd'
 alias rs='rails s'
 alias rc='rails c'
 alias bi='bundle install'
-alias besr='bundle exec spring rspec'
+alias ber='bundle exec rspec'
 alias ram='rake annotate_models'
 alias rlog='tail -f log/development.log'
 alias bsl='brew services list'
@@ -138,6 +138,39 @@ alias gcs='git checkout staging'
 
 alias gotowork='tmuxifier load-window example'
 alias rbb='rubocop -a'
+git-list-mrs() {
+  local current_branch=$(git rev-parse --abbrev-ref HEAD)
+  git log --merges --first-parent --format="%s%n%b%n===" | awk -v branch="$current_branch" '
+  BEGIN {RS="==="; FS="\n"}
+  {
+    merge_branch = ""
+    title = ""
+    mr = ""
+    for(i=1; i<=NF; i++) {
+      if($i ~ "into ." branch ".") {
+        match($i, /PRO-[0-9]+/)
+        merge_branch = substr($i, RSTART, RLENGTH)
+      }
+      if($i ~ /^PRO-|^\[PRO-/) {
+        title = $i
+      }
+      if($i ~ /See merge request.*![0-9]+/) {
+        match($i, /![0-9]+/)
+        mr = substr($i, RSTART, RLENGTH)
+      }
+    }
+    if(merge_branch) {
+      if(title && mr) {
+        # 去掉標題開頭的 [PRO-XXXXX] 或 PRO-XXXXX
+        gsub(/^\[PRO-[0-9]+\]/, "", title)
+        gsub(/^PRO-[0-9]+ /, "", title)
+        print merge_branch " " title " (" mr ")"
+      } else {
+        print merge_branch " (無標題資訊)"
+      }
+    }
+  }' | nl | head -700
+}
 
 
 # [eslint-alias] standard
@@ -148,7 +181,8 @@ stn() {
 
 # [tmux]
 alias ttl='tmux ls'
-alias tt='tmux attach -t '
+alias ttn='tmux new -s'
+alias tt='tmux attach-session -d -t'
 alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
@@ -189,11 +223,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH=/Users/Shared/DBngin/mysql/5.7.23/bin:$PATH
 export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
 export PATH=~/.local/bin:$PATH
-export LDFLAGS="-L$(brew --prefix openssl)/lib"
-export CPPFLAGS="-I$(brew --prefix openssl)/include"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export LDFLAGS="-L$(brew --prefix openssl@1.1)/lib"
-export CPPFLAGS="-I$(brew --prefix openssl@1.1)/include"
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+export LDFLAGS="-L$(brew --prefix openssl@3)/lib"
+export CPPFLAGS="-I$(brew --prefix openssl@3)/include"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -238,3 +270,15 @@ export AGNOSTER_STATUS_RETVAL_NUMERIC=false
 
 export AGNOSTER_RUBY_BG=red
 export AGNOSTER_RUBY_FG=default
+export RUBY_TCP_NO_FAST_FALLBACK=1
+
+# Added by Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/Library/Python/3.11/bin:$PATH"
+export LENS_KUBECONFIG="$HOME/.kube/rails/lens-staging-cluster.yaml"
+
+# Force ARM64 architecture for M-series Mac
+if [ "$(uname -m)" = "arm64" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
