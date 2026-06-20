@@ -48,7 +48,7 @@ def install_dotfile
 end
 
 def backup_files(files)
-  run %{mkdir -p #{ENV["HOME"]}/.dotfiles_backup} unless File.exists?("#{ENV["HOME"]}/.dotfiles_backup")
+  run %{mkdir -p #{ENV["HOME"]}/.dotfiles_backup} unless File.exist?("#{ENV["HOME"]}/.dotfiles_backup")
 
   files.each do |file|
     target = "#{ENV["HOME"]}/#{file}"
@@ -69,7 +69,7 @@ def link_files(files)
   puts
 
   files.each do |file|
-    source = "#{ENV["PWD"]}/#{file}"
+    source = "#{Dir.pwd}/#{file}"
     target = "#{ENV["HOME"]}/#{file}"
 
     run %{ln -s #{source} #{target}}
@@ -78,7 +78,7 @@ def link_files(files)
 end
 
 def copy_setting_dirs_to_vim
-  dirs = Dir["*"] -%w[README.md Rakefile untils]
+  dirs = Dir["*"] -%w[README.md Rakefile utils]
 
   dirs.each do |dir|
     source = "#{Dir.pwd}/#{dir}"
@@ -91,7 +91,7 @@ end
 
 def install_oh_my_zsh
   oh_my_zsh = "#{ENV["HOME"]}/.oh-my-zsh"
-  unless File.exists?(oh_my_zsh)
+  unless File.exist?(oh_my_zsh)
     run %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
   else
     puts 'oh-my-zsh already to install'
@@ -102,7 +102,7 @@ def move_zsh_themes
   source = "#{Dir.pwd}/.oh-my-zsh/themes/agnoster.zsh-theme"
   target = "#{Dir.home}/.oh-my-zsh/themes/agnoster.zsh-theme"
 
-  run %{ rm -rf #{target}.backup} if File.exists?(target + ".backup")
+  run %{ rm -rf #{target}.backup} if File.exist?(target + ".backup")
   run %{ mv #{target} #{target}.backup}
   run %{ln -s #{source} #{target}}
 end
