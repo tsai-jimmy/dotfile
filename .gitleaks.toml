@@ -1,0 +1,14 @@
+# gitleaks 設定檔（dotfile 倉庫專用）
+# 繼承官方預設規則集，另加入本倉庫的 allowlist 以避免誤判。
+[extend]
+useDefault = true
+
+[allowlist]
+description = "dotfile 倉庫白名單"
+# agnoster 主題的 AWS 提示色彩變數並非憑證
+regexes = [
+  '''AGNOSTER_AWS_[A-Z_]+''',
+]
+paths = [
+  '''\.oh-my-zsh/themes/agnoster\.zsh-theme''',
+]

@@ -3,3 +3,14 @@
 /plugin/plugin
 /utils/utils
 .DS_Store
+
+# 本機 / 內部專屬設定，嚴禁提交
+.zshrc.local
+*.local
+*.secret
+*.secrets
+.env
+.env.*
+
+# 本機工具設定
+.claude/

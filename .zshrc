@@ -98,7 +98,7 @@ touch () {
   command touch "$1"
 }
 
-export GITHUB_UPSTREAM='otcbtc'
+# NOTE: GITHUB_UPSTREAM / GITHUB_UPSTREAM_1 等內部組織代號已移至 ~/.zshrc.local
 
 #function pr_for_sha {
   #git log --merges --ancestry-path --oneline $1..master | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
@@ -108,8 +108,6 @@ export GITHUB_UPSTREAM='otcbtc'
   current_branch=$(git branch | grep \* | cut -d ' ' -f2)
   git log --merges --ancestry-path --oneline $1..$current_branch | grep 'pull request' | tail -n1 | awk '{print $5}' | cut -c2- | xargs -I % open https://github.com/$GITHUB_UPSTREAM/${PWD##*/}/pull/%
 }
-
-export GITHUB_UPSTREAM_1='caibaoshuo'
 
  pr_cai_sha() {
   current_branch=$(git branch | grep \* | cut -d ' ' -f2)
@@ -187,7 +185,7 @@ alias ttk='tmux kill-session -t'
 alias ttka='tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t'
 
 # 常用 alias
-alias findip='ifconfig | grep 192.168.3'
+# findip 已移至 ~/.zshrc.local（含內部網段）
 alias ll='ls -al'
 alias z='vim ~/.zshrc'
 alias q='vim ~/.gitconfig'
@@ -197,11 +195,8 @@ alias nrd='npm run dev'
 alias ng3000='ngrok http 3000'
 alias jami='zip -er $HOME/Desktop/jami.zip'  # 加密
 alias blog='cd ~/Dropbox/jimmy_de_blog/hexo-blog'
-alias fjo='cd ~/Project2018/forjob/otcbtc'
-alias pro='cd ~/Project2020/forjob/raichu'
-alias fje='cd ~/Project2018/forjob/exchange-client'
+# 工作專案目錄捷徑（fjo/pro/fje/ex）已移至 ~/.zshrc.local
 alias ffd='cd ~/Project2018/forfun/dd3'
-alias ex='cd ~/Project2020/forjob/bitex/'
 alias ff='cd ~/Project2020/forfun/'
 alias fj='cd ~/Project2020/forjob/'
 alias rmf='rm -rf'
@@ -275,10 +270,13 @@ export RUBY_TCP_NO_FAST_FALLBACK=1
 # Added by Antigravity
 export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/Library/Python/3.11/bin:$PATH"
-export LENS_KUBECONFIG="$HOME/.kube/rails/lens-staging-cluster.yaml"
+# LENS_KUBECONFIG 已移至 ~/.zshrc.local
 
 # Force ARM64 architecture for M-series Mac
 if [ "$(uname -m)" = "arm64" ]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
+
+# 載入本機 / 公司內部專屬設定（不納入版本控制）
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
