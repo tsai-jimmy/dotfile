@@ -12,5 +12,9 @@
 .env
 .env.*
 
+# 含明文金鑰風險的環境檔，嚴禁提交（即使誤複製進 repo）
+.zshenv
+.zshenv.local
+
 # 本機工具設定
 .claude/
